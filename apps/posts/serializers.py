@@ -7,17 +7,18 @@ class PostImageSerializer(serializers.ModelSerializer):
         model = PostImage
         fields = "__all__"
 
-
-class PostSerializer(serializers.ModelSerializer):
-    post_images = PostImageSerializer(read_only=True, many=True)
-
-    class Meta:
-        model = Post
-        fields = "__all__"
-
-
 class LikeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Like
-        fields = '__all__'
+        fields = "__all__"
+
+
+class PostSerializer(serializers.ModelSerializer):
+    post_images = PostImageSerializer(read_only=True, many=True)
+    like_post = LikeSerializer(read_only = True, many = True)
+
+
+    class Meta:
+        model = Post
+        fields = "__all__"
