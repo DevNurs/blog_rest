@@ -4,7 +4,12 @@ from apps.posts.serializers import (
     PostImageSerializer,
     LikeSerializer,
 )
-from apps.posts.models import Post, PostImage, Like
+from apps.posts.models import (
+    Post,
+    PostImage,
+    Like
+)
+from rest_framework import permissions
 
 
 class PostAPIViewSet(viewsets.ModelViewSet):
@@ -24,3 +29,12 @@ class LikeCreateAPIView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
+
+class LikeUpdateAPIView(generics.UpdateAPIView):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+
+
+class LikeDeleteAPIView(generics.DestroyAPIView):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
