@@ -1,5 +1,5 @@
 from rest_framework import viewsets, generics
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from apps.posts.models import Post, PostImage, Like, Tag
 from apps.posts.serializers import (
     PostSerializer,
@@ -23,6 +23,7 @@ class PostAPIViewSet(viewsets.ModelViewSet):
 class TagAPIViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class PostImageAPIViewSet(viewsets.ModelViewSet):

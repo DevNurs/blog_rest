@@ -14,3 +14,18 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-comment_created']
+
+
+class LikeComment(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='like_for_comment_user'
+    )
+    comment = models.ForeignKey(
+        Comment,
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return f"{self.user.id}--{self.comment.id}"
