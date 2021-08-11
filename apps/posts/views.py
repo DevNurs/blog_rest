@@ -5,6 +5,8 @@ from apps.posts.serializers import (
     LikeSerializer,
 )
 from apps.posts.models import Post, PostImage, Like
+from apps.comments.models import Comment
+from apps.comments.serializers import CommentSerializer
 
 
 class PostAPIViewSet(viewsets.ModelViewSet):
@@ -23,4 +25,9 @@ class LikeCreateAPIView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+class CommentAPIView(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()        
+    serializer_class = CommentSerializer
+
 
