@@ -34,11 +34,16 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
+api_urlpatterns = [
+    path('', include('apps.posts.urls')),
+    path('comments/', include('apps.comments.urls')),
+]
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.posts.urls')),
-    path('comments/', include('apps.comments.urls')),
+    path('auth/', include('rest_framework.urls')),
+    path('api/', include(api_urlpatterns)),
 
     # docs
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
