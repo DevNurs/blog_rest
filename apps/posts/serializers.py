@@ -8,15 +8,17 @@ class PostImageSerializer(serializers.ModelSerializer):
         model = PostImage
         fields = "__all__"
 
+
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = "__all__"
 
+
 class PostSerializer(serializers.ModelSerializer):
     post_images = PostImageSerializer(read_only=True, many=True)
-    like_post = LikeSerializer(read_only = True, many = True)
-    user = LikeSerializer(read_only = True, many = True)
+    like_post = LikeSerializer(read_only=True, many=True)
+    user = LikeSerializer(read_only=True, many=True)
     total_likes = SerializerMethodField()
 
     class Meta:

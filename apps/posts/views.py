@@ -5,8 +5,6 @@ from apps.posts.serializers import (
     LikeSerializer,
 )
 from apps.posts.models import Post, PostImage, Like
-from django.db.models.functions import Coalesce
-from django.db.models import Count, Sum, Value
 
 
 class PostAPIViewSet(viewsets.ModelViewSet):
