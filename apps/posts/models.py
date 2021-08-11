@@ -5,6 +5,9 @@ User = get_user_model()
 
 
 class Post(models.Model):
+    owner = models.ForeignKey(
+        User,on_delete=models.CASCADE
+    )
     title = models.CharField(
         max_length=255, blank=True,
         null=True, db_index=True,
@@ -44,7 +47,3 @@ class Like(models.Model):
     def __str__(self):
         return f'{self.user.name} -- {self.post.title}'
 
-class CountLike(models.Model):
-    post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='like_count')
-    likes = models.PositiveSmallIntegerField(default=0)

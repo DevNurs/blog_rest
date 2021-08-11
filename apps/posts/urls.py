@@ -10,6 +10,7 @@ router.register('comment', views.CommentAPIView, basename='post_comment')
 
 urlpatterns = [
     path('like/', views.LikeCreateAPIView.as_view(), name='like'),
+    path('likecom/', views.CommentLIkeAPIView.as_view(), name='likecom')
 ]
 
 urlpatterns += router.urls
