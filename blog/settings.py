@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # apps
-    'apps.posts'
+    'apps.posts',
+    'apps.comments'
 ]
 
 MIDDLEWARE = [
