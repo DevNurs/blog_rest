@@ -15,6 +15,11 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    author = models.ForeignKey(
+        User,
+        on_delete = models.CASCADE,
+        related_name = 'author'
+    )
     title = models.CharField(
         max_length=255, blank=True,
         null=True, db_index=True,

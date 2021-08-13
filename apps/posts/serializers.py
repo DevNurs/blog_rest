@@ -5,7 +5,6 @@ from apps.posts.models import Post, PostImage, Like, Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Tag
         fields = '__all__'
