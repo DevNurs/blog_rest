@@ -41,8 +41,7 @@ INSTALLED_APPS = [
 
     # apps
     'apps.posts',
-    'apps.comments',
-
+    'apps.comments'
 ]
 
 MIDDLEWARE = [

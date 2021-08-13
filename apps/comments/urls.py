@@ -1,8 +1,7 @@
 from rest_framework.routers import DefaultRouter
-from apps.comments import views
+from .views import CommentAPIViewSET
 
 router = DefaultRouter()
-router.register('comments', views.CommentAPIViewSet, basename='comment')
-router.register('like_for_comments', views.LikeCommentAPIViewSet, basename='like_comment')
+router.register('comments', CommentAPIViewSET, basename='comments')
 
 urlpatterns = router.urls
