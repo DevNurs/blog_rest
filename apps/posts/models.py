@@ -1,7 +1,23 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
-User = get_user_model()
+
+class User(AbstractUser):
+    GENDER_CHOICES = (
+        ('m', 'Men'),
+        ('f', 'Female'),
+        ("I don't know", 'Trans'),
+    )
+    username = models.CharField(max_length=255, unique=True)
+    profile = models.ImageField(upload_to='profiles', blank=True, null=True)
+    bio = models.CharField(max_length=255, blank=True, null=True)
+    age = models.PositiveIntegerField(default=0)
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=255)
+
+    def __str__(self):
+        return f"{self.username} -- {self.gender}"
 
 
 class Tag(models.Model):
@@ -15,6 +31,11 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='owner'
+    )
     title = models.CharField(
         max_length=255, blank=True,
         null=True, db_index=True,
@@ -27,6 +48,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title} -- {self.create_at}'
+
+
+User = get_user_model()
 
 
 class PostImage(models.Model):

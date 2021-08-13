@@ -1,11 +1,12 @@
+from abc import ABC
+
 from rest_framework import serializers
 
 from apps.comments.serializers import CommentSerializer
-from apps.posts.models import Post, PostImage, Like, Tag
+from apps.posts.models import Post, PostImage, Like, Tag, User
 
 
 class TagSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Tag
         fields = '__all__'
@@ -49,3 +50,11 @@ class PostDetailSerializer(serializers.ModelSerializer):
 
     def get_total_likes(self, instance):
         return instance.like_post.all().count()
+
+
+class UserSerializer(serializers.ModelSerializer):
+    owner = PostSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'profile', 'bio', 'age', 'gender', 'owner' ]

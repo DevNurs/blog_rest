@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register('post', views.PostAPIViewSet, basename='posts')
 router.register('image', views.PostImageAPIViewSet, basename='post_image')
 router.register('tags', views.TagAPIViewSet, basename='tags')
+router.register('users', views.UserAPIViewSet, basename='users')
 
 urlpatterns = [
     path('like/', views.LikeCreateAPIView.as_view(), name='like'),
