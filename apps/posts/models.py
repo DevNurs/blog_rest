@@ -3,14 +3,21 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+class Tag(models.Model):
+    text = models.TextField()
+
+    def __str__(self):
+        return f'{self.id} {self.text}'
+
 
 class Post(models.Model):
     owner = models.ForeignKey(
         User,on_delete=models.CASCADE
     )
+    tags = models.ManyToManyField(Tag, related_name='post_tags')
     title = models.CharField(
         max_length=255, blank=True,
-        null=True, db_index=True,
+        null=True, db_index=True,   
     )
     description = models.TextField(
         blank=True, null=True
