@@ -24,6 +24,7 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(read_only=True)
     post_images = PostImageSerializer(read_only=True, many=True)
     total_likes = serializers.SerializerMethodField()
     tags = serializers.StringRelatedField(many=True, read_only=True)

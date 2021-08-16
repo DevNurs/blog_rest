@@ -1,6 +1,7 @@
 from rest_framework import viewsets, generics, permissions
 
 from apps.posts.models import Post, PostImage, Like, Tag
+from apps.posts.permissions import OwnerPermission
 from apps.posts.serializers import (
     PostSerializer,
     PostImageSerializer,
@@ -14,13 +15,21 @@ class PostAPIViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [
-        permissions.IsAuthenticated,
+        OwnerPermission,
     ]
 
     def get_serializer_class(self):
         if self.action in ['retrieve']:
             return PostDetailSerializer
         return self.serializer_class
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [permissions.IsAuthenticated()]
+        return [permission() for permission in self.permission_classes]
 
 
 class TagAPIViewSet(viewsets.ModelViewSet):
