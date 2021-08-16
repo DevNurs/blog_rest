@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, permissions
 
 from apps.posts.models import Post, PostImage, Like, Tag
 from apps.posts.serializers import (
@@ -13,6 +13,9 @@ from apps.posts.serializers import (
 class PostAPIViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
     def get_serializer_class(self):
         if self.action in ['retrieve']:
