@@ -35,6 +35,9 @@ class PostAPIViewSet(viewsets.ModelViewSet):
 class TagAPIViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = [
+        OwnerPermission,
+    ]
 
 
 class PostImageAPIViewSet(viewsets.ModelViewSet):
