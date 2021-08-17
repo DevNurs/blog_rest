@@ -4,13 +4,14 @@ from apps.comments.serializers import (
 )
 from apps.posts.permissions import OwnerPermission
 from apps.comments.models import Comment
+from rest_framework.permissions import IsAuthenticated
 
 
 class CommentAPIViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [
-        OwnerPermission,
+        IsAuthenticated,
     ]
 
     def perform_create(self, serializer):
