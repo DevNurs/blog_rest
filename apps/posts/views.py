@@ -1,4 +1,5 @@
-from rest_framework import viewsets, generics, permissions
+from rest_framework import viewsets, generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 from apps.posts.models import Post, PostImage, Like, Tag
 from apps.posts.permissions import OwnerPermission
@@ -14,6 +15,21 @@ from apps.posts.serializers import (
 class PostAPIViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    filterset_fields = [
+        'user', 'tags',
+    ]
+    search_fields = [
+        'user__username', 'title',
+    ]
+    ordering_fields = [
+        'user', 'title', 'create_at'
+    ]
+
     permission_classes = [
         OwnerPermission,
     ]

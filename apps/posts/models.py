@@ -32,6 +32,9 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} -- {self.create_at}'
 
+    class Meta:
+        ordering = ('-id',)
+
 
 class PostImage(models.Model):
     image = models.ImageField(
