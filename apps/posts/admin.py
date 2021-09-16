@@ -15,3 +15,4 @@ class PostAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Like)
+admin.site.register(models.Tag)
